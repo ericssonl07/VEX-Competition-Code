@@ -1,65 +1,36 @@
-# VEX Spin Up Code for 2022-23
+# VEX Pro V5 X-Drivetrain Drive and Autonomous Code
+
+Coded in [VEX PROS](https://pros.cs.purdue.edu/v5/api/cpp/index.html).
+
+@ericssonl07 [Github](https://github.com/ericssonl07)
+
+@coon-hound [Github](https://github.com/coon-hound)
+
+## Features
+As the robot has an X-Drivetrain, it is very manoeuvrable and can strafe in any direction without turning.
+The Drivetrain autonomous Move function uses the current GPS coordinates and yaw to calculate each motor's
+power individually with trigonometric functions, then feeds it into a PID controller for efficient motion.
+In control mode, the button Y will toggle precision mode, which divides each motor's power by five. Precision
+mode enables drivers to accurately turn and move the robot if needed.
 
 ## Controller Binds
-
 ```
-Axis 3      Foward/Reverse Drive
-Axis 4		Left/Right Drive
-Axis 1      Left/Right Turn
+Axis 1      Turn
+Axis 3      Forward/backward
+Axis 4      Left/right
 
-Button Y 	Enable Precision Mode
-Button X	Disable Precision Mode
-
-Button A	Intake
-Button X	Reverse Intake 
-
-Button Up	Flywheel
-
-Button L1   Blue Autonomous Selection
-Button R1   Red Autonomous Selection
+Button Y    Toggle precision mode
 ```
 
-## Move functions
+## Autonomous Drive Functions
+Declared in src/bot.hpp
+1. `void Move(double x, double y, double angle, double lengthTolerance, double angleTolerance, double tickLength)` moves the robot to coordinates `(x, y)` in meters at a final angle of `angle` degrees with an acceptable error of `lengthTolerance` meters and `angleTolerance` degrees, readjusting heading every `tickLength` milliseconds.
 
-```
-Declared and defined respectively in include/bot.h and src/bot.cpp
-(All angles mentioned are defined as follows: a clockwise turn is a negative rotation, 
-and a counter-clockwise turn is a position rotation)
+2. `void Turn(double angle)` turns the robot `angle` degrees.
 
-- void Move(double x, double y, double angle, double lengthTolerance, double angleTolerance, 
-             double tickLength, distanceUnits lengthUnit, rotationUnits angleUnit);
-    Moves the robot to the target coordinate (x, y) and facing a target heading (angle), 
-    with a certain position tolerance (lengthTolerance = 25 mm by default) and heading tolerance 
-    (angleTolerance = 1 degree by default). 
-    Distance is measured in lengthUnits (default is mm) and heading is measured in angleUnits (default is deg). 
-    tickLength is the approximate frequency that the robot recalculates motor headings.
-    Note: angles are negative clockwise and positive counter-clockwise
+3. `void SetHeading(double angle)` turns the robot to `angle` degrees.
 
-- void Turn(double angle);
-    Turns a certain amount specified by angle in degrees.
-
-- void SetHeading(double angle);
-    Turns the robot to a specific heading specified by angle in degrees.
-
-- void Shoot(int seconds);
-    Shooting disk for (seconds) seconds.
-
-- void Roll();
-    Spinning the Roller 180 degrees.
-```
-
-#### TODO
-- [x] controller code for drive
-- [x] controller code for intake
-- [x] controller code for flywheel
-- [x] controller code for roller (using intake)
-- [x] temperature-based power throttling (unnecessary, remove later)
-- [x] Decide on Autonomous round strategy
-- [x] Autonomous code finished (not yet tested)
-- [x] Updated code structure, putting autonomous functions in bot.h (defined in bot.cpp)
-- [ ] Autonomous code structure in main.cpp, add a clock to keep track of Auton time?
-- [ ] Separate intake and shoot functions because the robot may need to move around; during intake, slowly move robot forward
-- [ ] Potentially need to implement pneumatics
-
-Motor binds in `port_config.h`
-
+## To do
+- [ ] Implement Integration for PID Controller- "I" component
+- [ ] Tune PID Controller constants with [Ziegler-Nichols method](https://en.wikipedia.org/wiki/Ziegler-Nichols_method)
+- [ ] Template callback for autonomous functions during control, ex. on left button execute predefined move sequence
