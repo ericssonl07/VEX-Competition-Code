@@ -1,6 +1,6 @@
 # VEX Pro V5 X-Drivetrain Drive and Autonomous Code
 
-Coded in [VEX PROS](https://pros.cs.purdue.edu/v5/api/cpp/index.html).
+[//]: # (Coded in [VEX PROS](https://pros.cs.purdue.edu/v5/api/cpp/index.html).)
 
 @ericssonl07 [Github](https://github.com/ericssonl07)
 
@@ -24,7 +24,7 @@ Button Y    Toggle precision mode
 
 ## Autonomous Drive Functions
 Declared in src/bot.hpp
-1. `void Move(double x, double y, double angle, double lengthTolerance, double angleTolerance, double tickLength)` moves the robot to coordinates `(x, y)` in meters at a final angle of `angle` degrees with an acceptable error of `lengthTolerance` meters and `angleTolerance` degrees, readjusting heading every `tickLength` milliseconds.
+1. `void Move(double x, double y, double angle, double lengthTolerance, double angleTolerance, double tickLength)` moves the robot to coordinates `(x, y)` in millimeters at a final angle of `angle` degrees with an acceptable error of `lengthTolerance` meters and `angleTolerance` degrees, readjusting heading every `tickLength` milliseconds.
 
 2. `void Turn(double angle)` turns the robot `angle` degrees.
 
